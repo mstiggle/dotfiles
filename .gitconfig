@@ -1,0 +1,15 @@
+[user]
+	name = James Wang
+	email = veriathon@gmail.com
+
+[color]
+	ui = auto
+	branch = auto
+	status = auto
+	diff = auto
+[core]
+	editor = emacs
+	autocrlf = input
+[alias]
+	last = log -1 HEAD
+	lg = log --oneline --decorate --all --graph -30

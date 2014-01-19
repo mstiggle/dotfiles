@@ -1,0 +1,7 @@
+alias aa='open ~/.aliases && . ~/.aliases'
+alias emacs='open -a /usr/local/Cellar/emacs/24.2/Emacs.app $1'
+alias ec='/usr/local/Cellar/emacs/24.2/bin/emacsclient'
+alias python3='/usr/local/Cellar/python3/3.3.2/bin/python3'
+alias sml='/usr/local/smlnj-110.75/bin/sml'
+alias veewee='bundle exec veewee'
+alias pylab='ipython -pylab'

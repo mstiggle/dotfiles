@@ -4,15 +4,14 @@ PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
 export EDITOR=emacs
 
+export PATH="/usr/local:$PATH"
 export PATH="/usr/local/bin:$PATH"
-export PATH="/usr/local/share/python:$PATH"
 export PATH="/usr/local/julia:$PATH"
 export PATH="/usr/local/yum:$PATH"
 export PATH="/usr/texbin:$PATH"
 export PATH="/usr/local/share/npm/bin:$PATH"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
 export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 
 export GOPATH=~/Documents/Developer/Go

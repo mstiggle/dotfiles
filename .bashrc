@@ -15,7 +15,7 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 
-export GOPATH=~/Documents/Developer/Go
+export GOPATH=~/Documents/Dev/Go
 
 ### For virtualenvwrapper
 if [ ! -f /usr/local/bin/virtualenvwrapper.sh ];

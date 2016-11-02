@@ -14,6 +14,9 @@ export PATH="/usr/local/share/npm/bin:$PATH"
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+### For Terraform
+export PATH="/usr/local/terraform/bin:$PATH"
+
 
 export GOPATH=~/Documents/Dev/Go
 

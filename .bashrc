@@ -17,8 +17,9 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 ### For Terraform
 export PATH="/usr/local/terraform/bin:$PATH"
 
-
-export GOPATH=~/Documents/Dev/Go
+export ANDROID_HOME="~/Library/Android/sdk"
+export GOPATH="~/Dev/Go"
+export PATH="$GOPATH/bin:$PATH"
 
 ### For virtualenvwrapper
 if [ ! -f /usr/local/bin/virtualenvwrapper.sh ];

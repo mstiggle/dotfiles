@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     python
      csv
      javascript
      ;; ----------------------------------------------------------------
@@ -48,6 +49,7 @@ values."
      ranger
      org
      go
+     auto-completion
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -62,6 +64,7 @@ values."
    dotspacemacs-additional-packages
    '(
      flycheck
+     rjsx-mode
      )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -298,6 +301,10 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
+  (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin"))
+  (setq exec-path (append exec-path '("/usr/local/bin")))
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -308,25 +315,41 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
-
+  (setq auto-completion-private-snippetes-directory "~/.spacemacs.d/snippets")
 
   (setq js2-basic-offset 2)
   ;; JSX in `web-mode`, gives us highlighting
-  (add-to-list 'auto-mode-alist '("\\.jsx" . web-mode))
-  (add-to-list 'auto-mode-alist '("\\.react.js" . web-mode))
-  (defadvice web-mode-highlight-part (around tweak-jsx activate)
-    (if (equal web-mode-content-type "jsx")
-        (let ((web-mode-enable-part-face nil))
-          ad-do-it)
-      ad-do-it))
+  (add-to-list 'auto-mode-alist '("\\.js" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.react.js" . rjsx-mode))
+
+
+  ;; utility function for rjsx
+  (defun eslint-fix ()
+    "Format the current file with ESLint."
+    (interactive)
+    (if (executable-find "eslint")
+        (progn (call-process "eslint" nil "*ESLint Errors*" nil "--fix" buffer-file-name)
+               (revert-buffer t t t))
+      (message "ESLint not found.")))
+
+  (defun evil-rjsx-electric ()
+    (interactive)
+    (rjsx-delete-creates-full-tag 1 nil)
+    )
 
   ;; JSX tern support
-  (add-hook 'web-mode-hook '(lambda ()
-                             (when (equal web-mode-content-type "jsx")
-                               (tern-mode t)
-                               (company-mode)
-                               (flycheck-mode)
-                               )))
+  (add-hook 'rjsx-mode-hook (lambda ()
+                                 (tern-mode t)
+                                 (flycheck-mode)
+                                 (customize-set-variable 'j2-mode-hide-warnings-and-errors t)
+                                 (evil-define-key 'insert rjsx-mode-map "\C-d" #'evil-rjsx-electric)
+                                 ))
+
+  ;; (add-hook 'rjsx-mode-hook
+  ;;           (lambda ()
+  ;;             (add-hook 'after-save-hook #'eslint-fix)))
+
   (require 'web-mode)
   (setq css-indent-offset 2)
   (setq python-indent-offset 2)
@@ -395,8 +418,8 @@ you should place your code here."
     "Javascript type checking using Flow."
     :command ("flow" "--json" source-original)
     :error-parser flycheck-parse-flow
-    :modes (react-mode js2-mode js2-jsx-mode web-mode)
-    :next-checkers ((error . javascript-eslint))
+    :modes (react-mode js2-mode js2-jsx-mode web-mode rjsx-mode)
+;;    :next-checkers ((error . javascript-eslint))
     )
   (add-to-list 'flycheck-checkers 'javascript-flow)
 
@@ -407,3 +430,17 @@ you should place your code here."
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

@@ -18,7 +18,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/terraform/bin:$PATH"
 
 export ANDROID_HOME="~/Library/Android/sdk"
-export GOPATH="~/Dev/Go"
+export GOPATH="/Users/Avantos/Dev/Go"
 export PATH="$GOPATH/bin:$PATH"
 
 ### For virtualenvwrapper

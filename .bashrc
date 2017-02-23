@@ -25,17 +25,6 @@ eval "$(pyenv init -)"
 pyenv rehash
 export PATH="$(pyenv root)/shims:$PATH"
 
-### For virtualenvwrapper harmonized with pyenv
-if [ ! -f /usr/local/bin/virtualenvwrapper.sh ];
-then
-    echo "[bashrc] virtualenvwrapper is not installed"
-else
-    export WORKON_HOME=$HOME/$(pyenv root)/versions
-    export PROJECT_HOME=$HOME/Dev
-    source /usr/local/bin/virtualenvwrapper.sh
-fi
-
-
 source ~/.git-completion.bash
 
 export NVM_DIR="/Users/Avantos/.nvm"

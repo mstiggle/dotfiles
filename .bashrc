@@ -18,7 +18,7 @@ export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
 export PATH="/usr/local/terraform/bin:$PATH"
 
 export ANDROID_HOME="~/Library/Android/sdk"
-export GOPATH="/Users/Avantos/Dev/Go"
+export GOPATH="$HOME/Dev/Go"
 export PATH="$GOPATH/bin:$PATH"
 
 eval "$(pyenv init -)"
@@ -27,5 +27,5 @@ export PATH="$(pyenv root)/shims:$PATH"
 
 source ~/.git-completion.bash
 
-export NVM_DIR="/Users/Avantos/.nvm"
+export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

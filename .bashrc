@@ -21,6 +21,8 @@ export ANDROID_HOME="~/Library/Android/sdk"
 export GOPATH="$HOME/Dev/Go"
 export PATH="$GOPATH/bin:$PATH"
 
+export PATH="$HOME/.cargo/bin:$PATH"
+
 eval "$(pyenv init -)"
 pyenv rehash
 export PATH="$(pyenv root)/shims:$PATH"

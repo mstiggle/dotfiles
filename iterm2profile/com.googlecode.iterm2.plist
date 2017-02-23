@@ -766,11 +766,11 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>530 477 620 392 0 0 1680 1027 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>202 289 1018 447 0 0 1680 1027 </string>
+	<string>202 303 958 433 0 0 1680 1027 </string>
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>127 443 592 584 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>842 4 836 1023 0 0 1680 1027 </string>
+	<string>23 25 1634 980 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>842 576 585 451 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -3210,6 +3210,8 @@
 	<real>0.40000000596046448</real>
 	<key>StretchTabsToFillBar</key>
 	<true/>
+	<key>SwitchPaneModifier</key>
+	<integer>5</integer>
 	<key>SwitchTabModifier</key>
 	<integer>4</integer>
 	<key>SwitchWindowModifier</key>

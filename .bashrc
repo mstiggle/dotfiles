@@ -21,15 +21,20 @@ export ANDROID_HOME="~/Library/Android/sdk"
 export GOPATH="/Users/Avantos/Dev/Go"
 export PATH="$GOPATH/bin:$PATH"
 
-### For virtualenvwrapper
+eval "$(pyenv init -)"
+pyenv rehash
+export PATH="$(pyenv root)/shims:$PATH"
+
+### For virtualenvwrapper harmonized with pyenv
 if [ ! -f /usr/local/bin/virtualenvwrapper.sh ];
 then
     echo "[bashrc] virtualenvwrapper is not installed"
 else
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/Devel
+    export WORKON_HOME=$HOME/$(pyenv root)/versions
+    export PROJECT_HOME=$HOME/Dev
     source /usr/local/bin/virtualenvwrapper.sh
 fi
+
 
 source ~/.git-completion.bash
 

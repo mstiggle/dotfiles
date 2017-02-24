@@ -1,35 +1,63 @@
 -- A global variable for the Hyper Mode
 k = hs.hotkey.modal.new({}, "F17")
 
--- HYPER+L: Open news.google.com in the default browser
+launch = function(appname)
+  hs.application.launchOrFocus(appname)
+  k.triggered = true
+end
+
+-- Sequential keybindings, e.g. Hyper-a,f for Finder
+a = hs.hotkey.modal.new({}, "F16")
+apps = {
+  {'e', 'Emacs'},
+  {'f', 'Finder'},
+  {'s', 'Slack'},
+  {'n', 'Notational Velocity'},
+  {'t', 'iTerm'},
+  {'p', 'System Preferences'},
+  {'c', 'Fantastical 2'},
+}
+for i, app in ipairs(apps) do
+  a:bind({}, app[1], function() launch(app[2]); a:exit(); end)
+end
+
+-- Bind a to hyper
+pressedA = function() a:enter() end
+releasedA = function() end
+k:bind({}, 'a', nil, pressedA, releasedA)
+
+-- Launch Alfred with HYPER+SHIFT+A
+k:bind({"shift"}, 'a', nil, function() launch('Alfred 3'); k.triggered = true; end)
+
+-- Launch Emacs with HYPER+e
+k:bind({}, 'e', nil, function() launch('Emacs'); k.triggered = true; end)
+
+-- Launch iTerm with HYPER+t
+k:bind({}, 't', nil, function() launch('iTerm'); k.triggered = true; end)
+
+-- Launch Chrome with HYPER+c
+k:bind({}, 'c', nil, function() launch('Google Chrome'); k.triggered = true; end)
+
+-- HYPER+up: Act like hyper up
+ufun = function()
+  hs.eventtap.keyStroke({"shift", "cmd", "alt", "ctrl"}, "Up")
+  k.triggered = true
+end
+k:bind({}, 'Up', nil, ufun)
+
+-- HYPER+left: Act like hyper left
 lfun = function()
-  news = "app = Application.currentApplication(); app.includeStandardAdditions = true; app.doShellScript('open http://news.google.com')"
-  hs.osascript.javascript(news)
+  hs.eventtap.keyStroke({"shift", "cmd", "alt", "ctrl"}, "Left")
   k.triggered = true
 end
-k:bind('', 'l', nil, lfun)
+k:bind({}, 'Left', nil, lfun)
 
--- HYPER+M: Call a pre-defined trigger in Alfred 3
-mfun = function()
-  cmd = "tell application \"Alfred 3\" to run trigger \"emoj\" in workflow \"com.sindresorhus.emoj\" with argument \"\""
-  hs.osascript.applescript(cmd)
+-- HYPER+right Act like hyper right
+rfun = function()
+  hs.eventtap.keyStroke({"shift", "cmd", "alt", "ctrl"}, "Right")
   k.triggered = true
 end
-k:bind({}, 'm', nil, mfun)
-
--- HYPER+E: Act like ⌃e and move to end of line.
-efun = function()
-  hs.eventtap.keyStroke({'⌃'}, 'e')
-  k.triggered = true
-end
-k:bind({}, 'e', nil, efun)
-
--- HYPER+A: Act like ⌃a and move to beginning of line.
-afun = function()
-  hs.eventtap.keyStroke({'⌃'}, 'a')
-  k.triggered = true
-end
-k:bind({}, 'a', nil, afun)
+k:bind({}, 'Right', nil, rfun)
 
 -- Enter Hyper Mode when F18 (Hyper/Capslock) is pressed
 pressedF18 = function()

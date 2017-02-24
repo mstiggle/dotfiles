@@ -9,6 +9,7 @@ alias orgflag='emacs ~/Dropbox/org/flagged.org'
 alias orgsomeday='emacs ~/Dropbox/org/someday.org'
 alias veewee='bundle exec veewee'
 alias pylab='ipython -pylab'
+alias ls='exa'
 
 rstudio() {
     R CMD javareconf -e

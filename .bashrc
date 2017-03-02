@@ -1,6 +1,9 @@
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
+# Add my notes folder for scripts to have easy access 
+export NOTES=$HOME/Dropbox/Apps/NotationalVelocity
+
 . ~/.aliases
 
 export EDITOR=emacs
@@ -21,7 +24,10 @@ export ANDROID_HOME="~/Library/Android/sdk"
 export GOPATH="$HOME/Dev/Go"
 export PATH="$GOPATH/bin:$PATH"
 
+# for Rust
 export PATH="$HOME/.cargo/bin:$PATH"
+# for my own custom scripts
+export PATH="$HOME/dotfiles/scripts:$PATH"
 
 eval "$(pyenv init -)"
 pyenv rehash

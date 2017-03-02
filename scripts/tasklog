@@ -1,0 +1,11 @@
+#!/bin/bash
+
+appendToLog ()
+{
+    local ts=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    local input="$@"
+    echo "$ts $input" >> \
+                   $NOTES/Time\ Tracking.txt
+    echo "Added $ts $input to tracker."
+}
+appendToLog $(echo "$1")

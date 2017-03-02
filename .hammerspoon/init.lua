@@ -16,6 +16,7 @@ apps = {
   {'t', 'iTerm'},
   {'p', 'System Preferences'},
   {'c', 'Fantastical 2'},
+  {'o', 'Microsoft OneNote'},
 }
 for i, app in ipairs(apps) do
   a:bind({}, app[1], function() launch(app[2]); a:exit(); end)
@@ -38,6 +39,9 @@ k:bind({}, 't', nil, function() launch('iTerm'); k.triggered = true; end)
 -- Launch Chrome with HYPER+c
 k:bind({}, 'c', nil, function() launch('Google Chrome'); k.triggered = true; end)
 
+-- Launch Slack with HYPER+s
+k:bind({}, 's', nil, function() launch('Slack'); k.triggered = true; end)
+
 -- HYPER+up: Act like hyper up
 ufun = function()
   hs.eventtap.keyStroke({"shift", "cmd", "alt", "ctrl"}, "Up")
@@ -58,6 +62,13 @@ rfun = function()
   k.triggered = true
 end
 k:bind({}, 'Right', nil, rfun)
+
+-- HYPER+down: Act like hyper down
+dfun = function()
+  hs.eventtap.keyStroke({"shift", "cmd", "alt", "ctrl"}, "Down")
+  k.triggered = true
+end
+k:bind({}, 'Down', nil, dfun)
 
 -- Enter Hyper Mode when F18 (Hyper/Capslock) is pressed
 pressedF18 = function()

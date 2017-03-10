@@ -27,3 +27,6 @@ ln -s .spacemacs.d $HOME/.
 
 # vim dotfiles
 ln -s .vimrc
+
+# misc
+ln -s .eslintrc $HOME/.

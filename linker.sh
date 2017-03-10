@@ -19,6 +19,9 @@ ln -s .zshrc $HOME/.
 # todo.sh dotfiles
 ln -s todo.cfg $HOME/.
 
+# hammerspoon dotfiles
+ln -s .hammerspoon $HOME/.
+
 # emacs dotfiles
 ln -s .spacemacs.d $HOME/.
 

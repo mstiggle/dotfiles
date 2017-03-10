@@ -10,3 +10,10 @@ set path+=**
 
 " Display all matching files with tab-complete
 set wildmenu
+
+" Netrw File Browser
+let g:netrw_banner=0          " disable file banner
+let g:netrw_browse_split=4    " opens in prior window
+let g:netrw_altv=1            " opens splits to the right
+let g:netrw_liststyle=3       " tree view
+let g:netrw_list_hide=',\(^\|\s\s\)\zs\.\S\+'

@@ -16,6 +16,7 @@ apps = {
   {'n', 'Notational Velocity'},
   {'t', 'iTerm'},
   {'p', 'System Preferences'},
+  {'v', 'Preview'},
   {'c', 'Fantastical 2'},
   {'o', 'Microsoft OneNote'},
 }

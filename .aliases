@@ -1,7 +1,5 @@
 alias aa='open ~/.aliases && . ~/.aliases'
-alias emacs='open -a /Applications/Emacs.app/Contents/MacOS/Emacs'
-alias ec='/usr/local/Cellar/emacs/24.3/bin/emacsclient'
-alias python3='/usr/local/Cellar/python3/3.3.3/bin/python3'
+# alias emacs='open -a /Applications/Emacs.app/Contents/MacOS/Emacs'
 alias sml='/usr/local/smlnj-110.75/bin/sml'
 alias org='emacs ~/Dropbox/org/todo.org'
 alias orgcheck='emacs ~/Dropbox/org/checklists.org'

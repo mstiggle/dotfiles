@@ -54,7 +54,8 @@ values."
      auto-completion
      (shell :variables
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-shell 'multi-term)
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
@@ -309,6 +310,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (add-to-load-path-if-exists "~/.spacemacs.d/")
   (setq-default dotspacemacs-themes '(nord
+                                      clues
                                       spacemacs-dark))
 
   )
@@ -323,6 +325,58 @@ you should place your code here."
 
   (spacemacs/toggle-transparency)
 
+  ;; Make terminal prompts read-only
+  ;(setq comint-prompt-read-only t)
+  ;(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
+  (when (require 'multi-term nil t)
+    (global-set-key (kbd "<f5>") 'multi-term)
+    (setq term-bind-key-alist
+          (list (cons "C-c C-c" 'term-interrupt-subjob)
+                (cons "C-p" 'previous-line)
+                (cons "C-n" 'next-line)
+                (cons "M-f" 'term-send-forward-word)
+                (cons "M-b" 'term-send-backward-word)
+                (cons "C-c C-j" 'term-line-mode)
+                (cons "C-c C-k" 'term-char-mode)
+                (cons "M-DEL" 'term-send-backward-kill-word)
+                (cons "M-d" 'term-send-forward-kill-word)
+                (cons "<C-left>" 'term-send-backward-word)
+                (cons "<C-right>" 'term-send-forward-word)
+                (cons "C-r" 'term-send-reverse-search-history)
+                (cons "M-p" 'term-send-raw-meta)
+                (cons "M-y" 'term-send-raw-meta)
+                (cons "C-y" 'term-send-raw)))
+    (setq multi-term-buffer-name "term"
+          multi-term-program "/bin/bash"))
+
+  (unless (display-graphic-p)
+    (xterm-mouse-mode))
+
+  (defconst term-function-key-alist '((f1 . "\eOR")
+                                      (f2 . "\eOS")
+                                      (f3 . "\eOT")
+                                      (f4 . "\eOU")
+                                      (f5 . "\e[15~")
+                                      (f6 . "\e[17~")
+                                      (f7 . "\e[18~")
+                                      (f8 . "\e[19~")
+                                      (f9 . "\e[20~")
+                                      (f10 . "\e[21~")
+                                      (f11 . "\e[23~")
+                                      (f12 . "\e[24~")))
+
+  (defun term-send-function-key ()
+    (interactive)
+    (let* ((char last-input-event)
+           (output (cdr (assoc char term-function-key-alist))))
+      (term-send-raw-string output)))
+
+  (dolist (spec term-function-key-alist)
+    (define-key term-raw-map
+      (read-kbd-macro (format "<%s>" (car spec)))
+      'term-send-function-key))
+
+  ;; Snippets
   (setq auto-completion-private-snippetes-directory "~/.spacemacs.d/snippets")
 
   (setq js2-basic-offset 2)
@@ -450,10 +504,58 @@ you should place your code here."
    [default default default italic underline success warning error])
  '(ansi-color-names-vector
    ["black" "red3" "ForestGreen" "yellow3" "blue" "magenta3" "DeepSkyBlue" "gray50"])
+ '(compilation-message-face (quote default))
  '(evil-want-Y-yank-to-eol nil)
+ '(fringe-mode 10 nil (fringe))
+ '(highlight-changes-colors (quote ("#FD5FF0" "#AE81FF")))
+ '(highlight-tail-colors
+   (quote
+    (("#3C3D37" . 0)
+     ("#679A01" . 20)
+     ("#4BBEAE" . 30)
+     ("#1DB4D0" . 50)
+     ("#9A8F21" . 60)
+     ("#A75B00" . 70)
+     ("#F309DF" . 85)
+     ("#3C3D37" . 100))))
+ '(magit-diff-use-overlays nil)
+ '(main-line-color1 "#222232")
+ '(main-line-color2 "#333343")
+ '(nrepl-message-colors
+   (quote
+    ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme lua-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line))))
+    (zonokai-theme clues-theme color-theme-sanityinc-tomorrow monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme lua-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+ '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
+ '(pos-tip-background-color "#A6E22E")
+ '(pos-tip-foreground-color "#272822")
+ '(powerline-color1 "#222232")
+ '(powerline-color2 "#333343")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map
+   (quote
+    ((20 . "#F92672")
+     (40 . "#CF4F1F")
+     (60 . "#C26C0F")
+     (80 . "#E6DB74")
+     (100 . "#AB8C00")
+     (120 . "#A18F00")
+     (140 . "#989200")
+     (160 . "#8E9500")
+     (180 . "#A6E22E")
+     (200 . "#729A1E")
+     (220 . "#609C3C")
+     (240 . "#4E9D5B")
+     (260 . "#3C9F79")
+     (280 . "#A1EFE4")
+     (300 . "#299BA6")
+     (320 . "#2896B5")
+     (340 . "#2790C3")
+     (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil)
+ '(weechat-color-list
+   (unspecified "#272822" "#3C3D37" "#F70057" "#F92672" "#86C30D" "#A6E22E" "#BEB244" "#E6DB74" "#40CAE4" "#66D9EF" "#FB35EA" "#FD5FF0" "#74DBCD" "#A1EFE4" "#F8F8F2" "#F8F8F0")))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

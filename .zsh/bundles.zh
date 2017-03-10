@@ -1,0 +1,9 @@
+rupa/z
+djui/alias-tips
+mafredri/zsh-async
+zsh-users/zsh-completions
+
+# Theme and highlights must be last
+sindresorhus/pure
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-history-substring-search

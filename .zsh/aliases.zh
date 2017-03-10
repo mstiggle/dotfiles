@@ -1,0 +1,8 @@
+alias ls=exa
+alias emacs='open -a /Applications/Emacs.app/Contents/MacOS/Emacs'
+ec () {
+    $(emacsclient "$1"&)
+}
+
+# alias for reloading .zshrc easily
+alias sz='source $HOME/.zshrc'

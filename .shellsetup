@@ -18,7 +18,8 @@ export PATH="$HOME/dotfiles/scripts:$PATH"              # my own custom scripts
 # === Language-specific setups ===
 export ANDROID_HOME="$HOME/Library/Android/sdk"         # Android
 export GOPATH="$HOME/Dev/Go"                            # Golang
-export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="$HOME/.nvm"                             # NVM directory
+export JAVA_HOME=$(/usr/libexec/java_home)              # Java for Android Studio
 
 # Environment manager initializations
 eval "$(pyenv init -)" && pyenv rehash                  # Pyenv

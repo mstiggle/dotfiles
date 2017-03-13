@@ -321,6 +321,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
       (set-face-background 'default "unspecified-bg" (selected-frame))))
   (add-hook 'window-setup-hook 'on-after-init)
 
+  ;; use evil search
+  (setq evil-search-module (quote evil-search))
   )
 
 (defun dotspacemacs/user-config ()

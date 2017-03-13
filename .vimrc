@@ -11,6 +11,9 @@ set path+=**
 " Display all matching files with tab-complete
 set wildmenu
 
+" Display highlights while searching
+set hlsearch
+
 " Netrw File Browser
 let g:netrw_banner=0          " disable file banner
 let g:netrw_browse_split=4    " opens in prior window

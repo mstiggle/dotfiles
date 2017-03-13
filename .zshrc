@@ -30,7 +30,7 @@ setopt EXTENDED_GLOB              # extended syntax for globbing
 export EDITOR="vi"
 
 # === Modules ===
-autoload -U compinit promptinit zcalc zsh-mime-setup
+autoload -U compinit promptinit zcalc zsh-mime-setup zmv
 compinit
 promptinit
 zsh-mime-setup

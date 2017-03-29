@@ -7,10 +7,15 @@ export NOTES="$HOME/Dropbox/Apps/NotationalVelocity"     # notes folder for scri
 export EDITOR="/usr/local/bin/vim"                       # use vim for simple editing
 alias vim="/usr/local/bin/vim"                           # point to the right vim
 
+# === Todo.sh settings ===
+export TODOTXT_DEFAULT_ACTION=ls
+alias t="todo.sh -d $HOME/dotfiles/todo.cfg"
+
 # === PATH editing ===
 export PATH="/usr/local/bin:$PATH"                      # local binaries
 export PATH="/usr/local/yum:$PATH"                      # yum stuff, random things rely on it
 export PATH="/usr/local/share/npm/bin:$PATH"            # npm global
+export PATH="/usr/local/go/bin:$PATH"                   # add go to path
 export PATH="/usr/local/terraform/bin:$PATH"            # terraform directory
 export PATH="$HOME/.cargo/bin:$PATH"                    # rust cargo directory
 export PATH="$HOME/dotfiles/scripts:$PATH"              # my own custom scripts

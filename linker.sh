@@ -10,7 +10,7 @@ ln -s $HOME/dotfiles/.inputrc $HOME/.inputrc
 ln -s $HOME/dotfiles/.profile $HOME/.profile
 
 # Git dotfiles
-ln -s $HOME/dotfiles/.git-completion.bash $HOME/.git-completion.ash
+ln -s $HOME/dotfiles/.git-completion.bash $HOME/.git-completion.bash
 ln -s $HOME/dotfiles/.gitconfig $HOME/.gitconfig
 ln -s $HOME/dotfiles/.gitignore $HOME/.gitignore
 ln -s $HOME/dotfiles/.gitmodules $HOME/.gitmodules

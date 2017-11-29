@@ -32,5 +32,5 @@ zle -N zle-line-finish
 zle -N zle-keymap-select
 
 precmd () {
-    RPROMPT="$(python $HOME/dotfiles/scripts/battery.py 2>/dev/null) %{$fg[blue]%}%t%{$reset_color%}"
+    RPROMPT="%{$fg[blue]%}%t%{$reset_color%}"
 }

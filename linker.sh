@@ -19,10 +19,9 @@ ln -s $HOME/dotfiles/.gitmodules $HOME/.gitmodules
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 
 # todo.sh dotfiles
-ln -s $HOME/dotfiles/todo.cfg $HOME/todo.cfg
-
+# ln -s $HOME/dotfiles/todo.cfg $HOME/todo.cfg
 # taskwarrior dotfile
-ln -s $HOME/dotfiles/.taskrc $HOME/taskrc
+# ln -s $HOME/dotfiles/.taskrc $HOME/taskrc
 
 # hammerspoon dotfiles
 ln -s $HOME/dotfiles/.hammerspoon $HOME/.hammerspoon

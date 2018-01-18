@@ -12,7 +12,7 @@ a = hs.hotkey.modal.new({}, "F16")
 apps = {
   {'e', 'Emacs'},
   {'f', 'Finder'},
-  {'s', 'Slack'},
+  {'s', 'Safari'},
   {'n', 'Notational Velocity'},
   {'t', 'iTerm'},
   {'p', 'System Preferences'},
@@ -41,8 +41,14 @@ k:bind({}, 't', nil, function() launch('iTerm'); end)
 -- Launch Chrome with HYPER+c
 k:bind({}, 'c', nil, function() launch('Google Chrome'); end)
 
+-- Launch Safari with HYPER+b
+k:bind({}, 'b', nil, function() launch('Safari'); end)
+
 -- Launch Slack with HYPER+s
 k:bind({}, 's', nil, function() launch('Slack'); end)
+
+-- Launch Parallels with HYPER+p
+k:bind({}, 'p', nil, function() launch('Parallels Desktop'); end)
 
 -- HYPER+up: Act like hyper up
 ufun = function()

@@ -518,6 +518,7 @@ you should place your code here."
   (dumb-jump-mode)
 
   ;; Deft mode
+  (setq deft-default-extension "txt")
   (setq deft-directory "~/Dropbox/Apps/NotationalVelocity")
   ;; Overwrite `deft-current-files` for the `deft-buffer-setup` and limit it to 80 entries
   (defun anks-deft-limiting-fn (orig-fun &rest args)

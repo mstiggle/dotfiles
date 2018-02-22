@@ -516,10 +516,12 @@ you should place your code here."
   (add-hook 'web-mode-hook #'(lambda ()
                                (enable-minor-mode
                                 '("\\.jsx?\\'" . prettier-js-mode))))
+  (add-hook 'tide-mode 'prettier-js-mode)
 
   (setq prettier-js-args '(
-                           "--trailing-comma" "all"
-                           "--bracket-spacing" "false"
+                           "--trailing-comma" "es5"
+                           "--bracket-spacing" "true"
+                           "--single-quote" "true"
                            ))
 
   ;; Golang

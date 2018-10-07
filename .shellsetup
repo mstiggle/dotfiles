@@ -15,6 +15,7 @@ alias t="todo.sh -d $HOME/dotfiles/todo.cfg"
 export PATH="/usr/local/bin:$PATH"                      # local binaries
 export PATH="/usr/local/yum:$PATH"                      # yum stuff, random things rely on it
 export PATH="/usr/local/share/npm/bin:$PATH"            # npm global
+export PATH="$HOME/.npm-packages/bin:$PATH"             # npm explicit-set global
 export PATH="/usr/local/go/bin:$PATH"                   # add go to path
 export PATH="/usr/local/terraform/bin:$PATH"            # terraform directory
 export PATH="$HOME/.cargo/bin:$PATH"                    # rust cargo directory

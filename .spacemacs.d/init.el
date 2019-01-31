@@ -78,6 +78,7 @@ values."
      flycheck
      rjsx-mode
      prettier-js
+     centered-window
      (reason-mode
       :location (recipe
                  :repo "reasonml-editor/reason-mode"
@@ -350,6 +351,23 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
   (spacemacs/toggle-transparency)
+  (setq projectile-git-submodule-command nil)
+
+  ;; set markdown program
+  (setq markdown-command "pandoc")
+
+  ;; writing mode, courtesy of azer-bike
+  (defun writing-mode ()
+    (interactive)
+    (setq buffer-face-mode-face '(:family "iA Writer Duospace" :height 150))
+    (buffer-face-mode)
+    (linum-mode 0)
+    (centered-window-mode 1)
+    (visual-line-mode 1)
+    (setq truncate-lines nil)
+    (setq-default line-spacing 5)
+    (setq global-hl-line-mode nil)
+    )
 
   ;; Make terminal prompts read-only
   ;(setq comint-prompt-read-only t)
@@ -582,7 +600,7 @@ you should place your code here."
     ("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3")))
  '(package-selected-packages
    (quote
-    (treepy graphql helm-dash dash-at-point org-mime ghub let-alist prettier-js reason-mode deft utop tuareg caml ocp-indent merlin tide typescript-mode swift-mode org-category-capture winum powerline spinner alert log4e gntp markdown-mode skewer-mode simple-httpd multiple-cursors js2-mode hydra parent-mode projectile request gitignore-mode fuzzy pkg-info epl flx magit git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree highlight magit-popup json-snatcher json-reformat diminish go-mode bind-map bind-key yasnippet packed f s helm avy helm-core popup dockerfile-mode docker tablist docker-tramp dash async terraform-mode hcl-mode yaml-mode haml-mode planet-theme sublime-themes zonokai-theme clues-theme color-theme-sanityinc-tomorrow monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme lua-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (centered-window writeroom-mode visual-fill-column treepy graphql helm-dash dash-at-point org-mime ghub let-alist prettier-js reason-mode deft utop tuareg caml ocp-indent merlin tide typescript-mode swift-mode org-category-capture winum powerline spinner alert log4e gntp markdown-mode skewer-mode simple-httpd multiple-cursors js2-mode hydra parent-mode projectile request gitignore-mode fuzzy pkg-info epl flx magit git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree highlight magit-popup json-snatcher json-reformat diminish go-mode bind-map bind-key yasnippet packed f s helm avy helm-core popup dockerfile-mode docker tablist docker-tramp dash async terraform-mode hcl-mode yaml-mode haml-mode planet-theme sublime-themes zonokai-theme clues-theme color-theme-sanityinc-tomorrow monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme lua-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")

@@ -22,7 +22,9 @@ export PATH="$HOME/.cargo/bin:$PATH"                    # rust cargo directory
 export PATH="$HOME/dotfiles/scripts:$PATH"              # my own custom scripts
 
 # === Language-specific setups ===
-export ANDROID_HOME="$HOME/Library/Android/sdk"         # Android
+# export ANDROID_HOME="$HOME/Library/Android/sdk"         # Android
+export ANDROID_HOME="/usr/local/share/android-sdk"
+export ANDROID_SDK_ROOT="/usr/local/share/android-sdk"
 export GOPATH="$HOME/Dev/Go"                            # Golang
 export NVM_DIR="$HOME/.nvm"                             # NVM directory
 export JAVA_HOME=$(/usr/libexec/java_home)              # Java for Android Studio

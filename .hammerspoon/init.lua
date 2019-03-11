@@ -11,14 +11,13 @@ end
 a = hs.hotkey.modal.new({}, "F16")
 apps = {
   {'e', 'Emacs'},
-  {'f', 'Finder'},
+  {'f', 'Fantastical 2'},
   {'s', 'Safari'},
   {'n', 'Notational Velocity'},
   {'t', 'iTerm'},
   {'p', 'System Preferences'},
   {'v', 'Preview'},
-  {'c', 'Fantastical 2'},
-  {'o', 'Microsoft OneNote'},
+  {'c', 'Google Chrome'},
 }
 for i, app in ipairs(apps) do
   a:bind({}, app[1], function() launch(app[2]); a:exit(); end)
@@ -49,6 +48,9 @@ k:bind({}, 's', nil, function() launch('Slack'); end)
 
 -- Launch Parallels with HYPER+p
 k:bind({}, 'p', nil, function() launch('Parallels Desktop'); end)
+
+-- Launch Google Play Music Desktop Player with HYPER+m
+k:bind({}, 'm', nil, function() launch('Google Play Music Desktop Player'); end)
 
 -- HYPER+up: Act like hyper up
 ufun = function()

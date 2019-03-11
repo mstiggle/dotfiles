@@ -350,6 +350,27 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; install straight.el
+  (defvar bootstrap-version)
+  (let ((bootstrap-file
+         (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+        (bootstrap-version 5))
+    (unless (file-exists-p bootstrap-file)
+      (with-current-buffer
+          (url-retrieve-synchronously
+           "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+           'silent 'inhibit-cookies)
+        (goto-char (point-max))
+        (eval-print-last-sexp)))
+    (load bootstrap-file nil 'nomessage))
+
+  ;; alias for org-show-all
+  (defun org-show-all (i) (outline-show-all i))
+  ;; bugfix for spacemac's meta return
+  (with-eval-after-load 'org (org-defkey org-mode-map [(meta return)] 'org-meta-return))
+  (with-eval-after-load 'org (advice-add 'org-archive-subtree :after #'org-save-all-org-buffers))
+
+  ;; starting configs
   (spacemacs/toggle-transparency)
   (setq projectile-git-submodule-command nil)
 

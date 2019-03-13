@@ -388,6 +388,18 @@ you should place your code here."
   ;; bugfix for spacemac's meta return
   (with-eval-after-load 'org (org-defkey org-mode-map [(meta return)] 'org-meta-return))
   (with-eval-after-load 'org (advice-add 'org-archive-subtree :after #'org-save-all-org-buffers))
+  (with-eval-after-load 'org (advice-add 'org-refile :after #'org-save-all-org-buffers))
+
+  ;; custom agenda
+  (setq org-agenda-custom-commands
+        '(("A" "TODOs and upcoming agenda items"
+           ((agenda "" ((org-agenda-span 7)))
+            (todo "TODO" ((org-agenda-overriding-header "TODOs without dates\n")
+                          (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))
+          ))
+
+  ;; refile targets
+  (setq org-refile-targets '((org-agenda-files :maxlevel . 5)))
 
   ;; starting configs
   (spacemacs/toggle-transparency)

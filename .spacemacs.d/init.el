@@ -80,6 +80,7 @@ values."
      prettier-js
      centered-window
      all-the-icons
+     doom-modeline
      (reason-mode
       :location (recipe
                  :repo "reasonml-editor/reason-mode"
@@ -350,6 +351,10 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; enable doom modeline
+  (require 'doom-modeline)
+  (doom-modeline-mode 1)
 
   ;; install straight.el
   (defvar bootstrap-version)

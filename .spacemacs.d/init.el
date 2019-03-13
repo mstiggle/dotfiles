@@ -81,6 +81,7 @@ values."
      centered-window
      all-the-icons
      doom-modeline
+     doom-themes
      (reason-mode
       :location (recipe
                  :repo "reasonml-editor/reason-mode"
@@ -351,6 +352,12 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+
+  ;; Add doom themes
+  (load-theme 'doom-nord t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-org-config)
 
   ;; auto-check and install fonts if needed for all-the-icons
   (use-package all-the-icons

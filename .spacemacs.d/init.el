@@ -355,7 +355,7 @@ you should place your code here."
   ;; auto-check and install fonts if needed for all-the-icons
   (use-package all-the-icons
     :ensure t
-    :config(let ((font-dest (cl-case window-system
+    :config (let ((font-dest (cl-case window-system
                               (x  (concat (or (getenv "XDG_DATA_HOME")
                                               ;; Default Linux install directories
                                    (concat (getenv "HOME") "/.local/share"))

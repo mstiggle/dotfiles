@@ -352,6 +352,19 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; auto-check and install fonts if needed for all-the-icons
+  (use-package all-the-icons
+    :ensure t
+    :config(let ((font-dest (cl-case window-system
+                              (x  (concat (or (getenv "XDG_DATA_HOME")
+                                              ;; Default Linux install directories
+                                   (concat (getenv "HOME") "/.local/share"))
+                               "/fonts/"))
+                   (mac (concat (getenv "HOME") "/Library/Fonts/" ))
+                   (ns (concat (getenv "HOME") "/Library/Fonts/" )))))
+  (unless (file-exists-p (concat font-dest "all-the-icons.ttf"))
+    (all-the-icons-install-fonts t))))
+
   ;; enable doom modeline
   (require 'doom-modeline)
   (doom-modeline-mode 1)

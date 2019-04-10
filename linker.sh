@@ -15,6 +15,9 @@ ln -s $HOME/dotfiles/.gitconfig $HOME/.gitconfig
 ln -s $HOME/dotfiles/.gitignore $HOME/.gitignore
 ln -s $HOME/dotfiles/.gitmodules $HOME/.gitmodules
 
+# ag dotfiles
+ln -s $HOME/dotfiles/.agignore $HOME/.agignore
+
 # zsh dotfiles
 ln -s $HOME/dotfiles/.zshrc $HOME/.zshrc
 

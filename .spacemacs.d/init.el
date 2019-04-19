@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ruby
      swift
      docker
      terraform
@@ -353,6 +354,9 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
 
+  ;; set evil search
+  (setq-default evil-search-module 'evil-search)
+
   ;; Add doom themes
   (load-theme 'doom-nord t)
   (doom-themes-visual-bell-config)
@@ -403,6 +407,8 @@ you should place your code here."
            ((agenda "" ((org-agenda-span 7)))
             (todo "TODO" ((org-agenda-overriding-header "TODOs without dates\n")
                           (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))))))
+          ("W" "Waiting and Considered"
+           ((tags "@waiting|@consider")))
           ))
 
   ;; refile targets
@@ -488,7 +494,6 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.js" . rjsx-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx" . rjsx-mode))
   (add-to-list 'auto-mode-alist '("\\.react.js" . rjsx-mode))
-
 
   ;; utility function for rjsx
   (defun eslint-fix ()
@@ -665,7 +670,7 @@ you should place your code here."
  '(org-trello-current-prefix-keybinding "C-c o")
  '(package-selected-packages
    (quote
-    (doom-themes org-trello request-deferred deferred transient lv spaceline-all-the-icons all-the-icons memoize centered-window writeroom-mode visual-fill-column treepy graphql helm-dash dash-at-point org-mime ghub let-alist prettier-js reason-mode deft utop tuareg caml ocp-indent merlin tide typescript-mode swift-mode org-category-capture winum powerline spinner alert log4e gntp markdown-mode skewer-mode simple-httpd multiple-cursors js2-mode hydra parent-mode projectile request gitignore-mode fuzzy pkg-info epl flx magit git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree highlight magit-popup json-snatcher json-reformat diminish go-mode bind-map bind-key yasnippet packed f s helm avy helm-core popup dockerfile-mode docker tablist docker-tramp dash async terraform-mode hcl-mode yaml-mode haml-mode planet-theme sublime-themes zonokai-theme clues-theme color-theme-sanityinc-tomorrow monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme lua-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
+    (ruby-test-mode rubocop rspec-mode robe doom-modeline doom-themes org-trello request-deferred deferred transient lv spaceline-all-the-icons all-the-icons memoize centered-window writeroom-mode visual-fill-column treepy graphql helm-dash dash-at-point org-mime ghub let-alist prettier-js reason-mode deft utop tuareg caml ocp-indent merlin tide typescript-mode swift-mode org-category-capture winum powerline spinner alert log4e gntp markdown-mode skewer-mode simple-httpd multiple-cursors js2-mode hydra parent-mode projectile request gitignore-mode fuzzy pkg-info epl flx magit git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree highlight magit-popup json-snatcher json-reformat diminish go-mode bind-map bind-key yasnippet packed f s helm avy helm-core popup dockerfile-mode docker tablist docker-tramp dash async terraform-mode hcl-mode yaml-mode haml-mode planet-theme sublime-themes zonokai-theme clues-theme color-theme-sanityinc-tomorrow monokai-theme xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme lua-mode yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic helm-company helm-c-yasnippet company-web web-completion-data company-tern dash-functional company-statistics company-go company auto-yasnippet ac-ispell auto-complete rjsx-mode tern ws-butler window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs ranger rainbow-delimiters quelpa pug-mode popwin persp-mode pcre2el paradox orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide ido-vertical-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flx helm-descbinds helm-css-scss helm-ag google-translate golden-ratio go-guru go-eldoc gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md flycheck flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu emmet-mode elisp-slime-nav dumb-jump define-word csv-mode column-enforce-mode coffee-mode clean-aindent-mode auto-highlight-symbol auto-compile aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line)))
  '(pdf-view-midnight-colors (quote ("#DCDCCC" . "#383838")))
  '(pos-tip-background-color "#A6E22E")
  '(pos-tip-foreground-color "#272822")

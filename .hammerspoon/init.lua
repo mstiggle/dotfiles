@@ -34,6 +34,9 @@ k:bind({"shift"}, 'a', nil, function() launch('Alfred 3'); end)
 -- Launch Emacs with HYPER+e
 k:bind({}, 'e', nil, function() launch('Emacs'); end)
 
+-- Launch Dash with HYPER+e
+k:bind({}, 'd', nil, function() launch('Dash'); end)
+
 -- Launch iTerm with HYPER+t
 k:bind({}, 't', nil, function() launch('iTerm'); end)
 

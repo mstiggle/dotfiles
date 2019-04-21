@@ -1,13 +1,15 @@
 alias aa='open ~/.aliases && . ~/.aliases'
-# alias emacs='open -a /Applications/Emacs.app/Contents/MacOS/Emacs'
-alias sml='/usr/local/smlnj-110.75/bin/sml'
-alias org='emacs ~/Dropbox/org/todo.org'
-alias orgcheck='emacs ~/Dropbox/org/checklists.org'
-alias orgflag='emacs ~/Dropbox/org/flagged.org'
-alias orgsomeday='emacs ~/Dropbox/org/someday.org'
-alias veewee='bundle exec veewee'
-alias pylab='ipython -pylab'
-alias ls='exa'
+
+exa_or_ls () {
+    if command -v exa >/dev/null 2>&1; then
+        exa $1
+    else
+        ls $1
+    fi
+}
+
+# exa if available
+alias ls=exa_or_ls
 
 rstudio() {
     R CMD javareconf -e

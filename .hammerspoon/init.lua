@@ -49,6 +49,9 @@ k:bind({}, 'h', nil, function() launch('Superhuman'); end)
 -- Launch Slack with HYPER+s
 k:bind({}, 's', nil, function() launch('Slack'); end)
 
+-- Launch iA Writer with HYPER+i
+k:bind({}, 'i', nil, function() launch('iA Writer'); end)
+
 -- Launch Parallels with HYPER+p
 k:bind({}, 'p', nil, function() launch('Parallels Desktop'); end)
 

@@ -56,11 +56,12 @@ values."
      markdown
      ;; react
      ranger
-     org
+     (org :variables org-want-todo-bindings t)
      go
      deft
      dash
      typescript
+     lsp
      auto-completion
      (shell :variables
             shell-default-height 30
@@ -79,6 +80,7 @@ values."
      flycheck
      rjsx-mode
      prettier-js
+     olivetti
      centered-window
      all-the-icons
      doom-modeline
@@ -333,8 +335,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   ;; load theme before everything else
   (add-to-load-path-if-exists "~/.spacemacs.d/")
-  (setq-default dotspacemacs-themes '(planet
-                                      spacemacs-dark))
+  (setq-default dotspacemacs-themes '(spacemacs-dark))
 
   ;; set background color to nothing for terminal-based
   (defun on-after-init ()
@@ -395,8 +396,6 @@ you should place your code here."
     (load bootstrap-file nil 'nomessage))
 
   ;; alias for org-show-all
-  (defun org-show-all (i) (outline-show-all i))
-  ;; bugfix for spacemac's meta return
   (with-eval-after-load 'org (org-defkey org-mode-map [(meta return)] 'org-meta-return))
   (with-eval-after-load 'org (advice-add 'org-archive-subtree :after #'org-save-all-org-buffers))
   (with-eval-after-load 'org (advice-add 'org-refile :after #'org-save-all-org-buffers))
@@ -494,6 +493,9 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.js" . rjsx-mode))
   (add-to-list 'auto-mode-alist '("\\.jsx" . rjsx-mode))
   (add-to-list 'auto-mode-alist '("\\.react.js" . rjsx-mode))
+
+  ;; Typescript for tsx
+  (add-to-list 'auto-mode-alist '("\\.tsx" . typescript-mode))
 
   ;; utility function for rjsx
   (defun eslint-fix ()
@@ -601,7 +603,7 @@ you should place your code here."
   (add-hook 'web-mode-hook #'(lambda ()
                                (enable-minor-mode
                                 '("\\.jsx?\\'" . prettier-js-mode))))
-  (add-hook 'tide-mode 'prettier-js-mode)
+  (add-hook 'typescript-mode-hook 'prettier-js-mode)
 
   (setq prettier-js-args '(
                            "--trailing-comma" "es5"

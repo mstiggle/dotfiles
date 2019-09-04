@@ -22,18 +22,23 @@ export ANDROID_HOME="$HOME/Library/Android/sdk"         # Android
 export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"         # Android
 export GOPATH="$HOME/Dev/Go"                            # Golang
 export NVM_DIR="$HOME/.nvm"                             # NVM directory
-case "$(uname -s)" in
-   Darwin)
-	export JAVA_HOME=$(/usr/libexec/java_home)      # Java for Android Studio
-	;;
-esac
 
 # === Language-dependent paths ===
 export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 
 # Environment manager initializations
+export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init -)" && pyenv rehash                  # Pyenv
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+case "$(uname -s)" in
+   Darwin)
+	export JAVA_HOME=$(/usr/libexec/java_home)      # Java for Android Studio
+	;;
+   Linux)
+	eval "$(pyenv virtualenv-init -)"
+	;;
+esac
 
 # OPAM configuration
 . $HOME/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true

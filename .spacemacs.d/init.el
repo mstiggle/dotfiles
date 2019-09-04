@@ -57,7 +57,7 @@ values."
      ;; react
      ranger
      (org :variables org-want-todo-bindings t)
-     go
+     (go :variables go-format-before-save t)
      deft
      dash
      typescript
@@ -395,6 +395,17 @@ you should place your code here."
         (eval-print-last-sexp)))
     (load bootstrap-file nil 'nomessage))
 
+  ;; ** Custom Keybindings **
+  (spacemacs/declare-prefix "o" "custom")
+
+  (defun open-my-todo ()
+    "Opens user todo file in Dropbox."
+    (interactive)
+    (find-file "~/Dropbox/org/todo.org")
+    )
+  (spacemacs/set-leader-keys "ot" 'open-my-todo)
+
+  ;; ** Org-Mode Stuff **
   ;; alias for org-show-all
   (with-eval-after-load 'org (org-defkey org-mode-map [(meta return)] 'org-meta-return))
   (with-eval-after-load 'org (advice-add 'org-archive-subtree :after #'org-save-all-org-buffers))
@@ -412,6 +423,8 @@ you should place your code here."
 
   ;; refile targets
   (setq org-refile-targets '((org-agenda-files :maxlevel . 5)))
+
+  (add-hook 'org-mode-hook 'auto-revert-mode)
 
   ;; starting configs
   (spacemacs/toggle-transparency)
@@ -489,10 +502,9 @@ you should place your code here."
 
   (setq js2-basic-offset 2)
   (setq js-indent-level 2)
-  ;; JSX in `web-mode`, gives us highlighting
-  (add-to-list 'auto-mode-alist '("\\.js" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.jsx" . rjsx-mode))
-  (add-to-list 'auto-mode-alist '("\\.react.js" . rjsx-mode))
+  (add-to-list 'auto-mode-alist '("\\.js" . js-mode))
+  (add-to-list 'auto-mode-alist '("\\.jsx" . js-mode))
+  (add-to-list 'auto-mode-alist '("\\.react.js" . js-mode))
 
   ;; Typescript for tsx
   (add-to-list 'auto-mode-alist '("\\.tsx" . typescript-mode))

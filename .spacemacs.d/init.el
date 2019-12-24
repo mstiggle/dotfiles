@@ -509,6 +509,48 @@ you should place your code here."
   ;; Typescript for tsx
   (add-to-list 'auto-mode-alist '("\\.tsx" . typescript-mode))
 
+  ;; setup tide
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; formats the buffer before saving
+  ;; (add-hook 'before-save-hook 'tide-format-before-save)
+
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+
+  ;; Local eslint
+  ;; https://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+  (defun my/use-eslint-from-node-modules ()
+    (let* ((root (locate-dominating-file
+                  (or (buffer-file-name) default-directory)
+                  "node_modules"))
+           (eslint
+            (and root
+                 (expand-file-name "node_modules/.bin/eslint"
+                                   root))))
+      (when (and eslint (file-executable-p eslint))
+        (setq-local flycheck-javascript-eslint-executable eslint))))
+
+  (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+  ;; add ability to detect local path files
+  ;; (when (memq window-system '(mac ns))
+  ;;   (setq exec-path-from-shell-variables '("PATH" "MANPATH" "SSH_CLIENT" "HOSTNAME"
+  ;;                                          "GTAGSCONF" "GTAGSLABEL" "RUST_SRC_PATH"
+  ;;                                          "HISTFILE" "HOME" "GOPATH" "GOROOT" "GOEXEC"))  
+  ;;   (exec-path-from-shell-initialize))
+
   ;; utility function for rjsx
   (defun eslint-fix ()
     "Format the current file with ESLint."

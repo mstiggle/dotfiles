@@ -43,6 +43,9 @@ k:bind({}, 't', nil, function() launch('iTerm'); end)
 -- Launch Chrome with HYPER+c
 k:bind({}, 'c', nil, function() launch('Google Chrome'); end)
 
+-- Launch Safari with HYPER+b
+k:bind({}, 'b', nil, function() launch('Safari'); end)
+
 -- Launch Superhuman with HYPER+h
 k:bind({}, 'h', nil, function() launch('Superhuman'); end)
 

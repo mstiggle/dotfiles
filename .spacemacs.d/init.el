@@ -30,7 +30,7 @@ values."
    dotspacemacs-configuration-layer-path '()
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
-   '(
+   '(rust
      ruby
      swift
      docker
@@ -420,6 +420,11 @@ you should place your code here."
           ("W" "Waiting and Considered"
            ((tags "@waiting|@consider")))
           ))
+
+  ;; add agenda files
+  (setq org-agenda-files (list "~/Dropbox/org/todo.org"
+                               "~/Dropbox/org/backlog.org"
+                               "~/Dropbox/org/shopping.org"))
 
   ;; refile targets
   (setq org-refile-targets '((org-agenda-files :maxlevel . 5)))

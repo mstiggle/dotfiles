@@ -60,13 +60,16 @@ values."
      (go :variables go-format-before-save t)
      deft
      dash
-     typescript
+     (typescript :variables
+                 typescript-backend 'lsp)
      lsp
      auto-completion
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
             shell-default-shell 'multi-term)
+     latex
+     bibtex
      ;; spell-checking
      ;; syntax-checking
      ;; version-control
@@ -83,6 +86,7 @@ values."
      olivetti
      centered-window
      all-the-icons
+     all-the-icons-dired
      doom-modeline
      doom-themes
      (reason-mode
@@ -378,8 +382,15 @@ you should place your code here."
     (all-the-icons-install-fonts t))))
 
   ;; enable doom modeline
-  (require 'doom-modeline)
-  (doom-modeline-mode 1)
+  ;; (use-package doom-modeline
+  ;;   :ensure t
+  ;;   :init (doom-modeline-mode 1))
+
+  ;; allow ranger previews
+  (setq-default dotspacemacs-configuration-layers
+                '(ranger :variables
+                         ranger-show-preview t
+                         ranger-show-literal nil))
 
   ;; install straight.el
   (defvar bootstrap-version)
@@ -424,12 +435,65 @@ you should place your code here."
   ;; add agenda files
   (setq org-agenda-files (list "~/Dropbox/org/todo.org"
                                "~/Dropbox/org/backlog.org"
-                               "~/Dropbox/org/shopping.org"))
+                               "~/Dropbox/org/shopping.org"
+                               "~/Dropbox/org/inbox.org"))
+
+  ;; org latex profess
+  (setq org-latex-pdf-process
+        '("pdflatex %f" "biber %b" "pdflatex %f" "pdflatex %f"))
 
   ;; refile targets
   (setq org-refile-targets '((org-agenda-files :maxlevel . 5)))
 
   (add-hook 'org-mode-hook 'auto-revert-mode)
+
+  ;; org-ref settings
+  (setq org-ref-default-bibliography '("~/Dropbox/Bibliographies/references.bib")
+        org-ref-pdf-directory "~/Dropbox/Bibliographies/"
+        org-ref-bibliography-notes "~/Dropbox/Bibliographies/notes.org")
+
+  ;; org drag and drop
+  ;; https://kitchingroup.cheme.cmu.edu/blog/2015/07/10/Drag-images-and-files-onto-org-mode-and-insert-a-link-to-them/
+  (defun my-dnd-func (event)
+    (interactive "e")
+    (goto-char (nth 1 (event-start event)))
+    (x-focus-frame nil)
+    (let* ((payload (car (last event)))
+           (type (car payload))
+           (fname (cadr payload))
+           (img-regexp "\\(png\\|jp[e]?g\\)\\>"))
+      (cond
+       ;; insert image link
+       ((and  (eq 'drag-n-drop (car event))
+              (eq 'file type)
+              (string-match img-regexp fname))
+        (insert (format "[[%s]]" fname))
+        (org-display-inline-images t t))
+       ;; insert image link with caption
+       ((and  (eq 'C-drag-n-drop (car event))
+              (eq 'file type)
+              (string-match img-regexp fname))
+        (insert "#+ATTR_ORG: :width 300\n")
+        (insert (concat  "#+CAPTION: " (read-input "Caption: ") "\n"))
+        (insert (format "[[%s]]" fname))
+        (org-display-inline-images t t))
+       ;; C-drag-n-drop to open a file
+       ((and  (eq 'C-drag-n-drop (car event))
+              (eq 'file type))
+        (find-file fname))
+       ((and (eq 'M-drag-n-drop (car event))
+             (eq 'file type))
+        (insert (format "[[attachfile:%s]]" fname)))
+       ;; regular drag and drop on file
+       ((eq 'file type)
+        (insert (format "[[%s]]\n" fname)))
+       (t
+        (error "I am not equipped for dnd on %s" payload)))))
+
+
+  (with-eval-after-load 'org (org-defkey org-mode-map (kbd "<drag-n-drop>") 'my-dnd-func))
+  (with-eval-after-load 'org (org-defkey org-mode-map (kbd "<C-drag-n-drop>") 'my-dnd-func))
+  (with-eval-after-load 'org (org-defkey org-mode-map (kbd "<M-drag-n-drop>") 'my-dnd-func))
 
   ;; starting configs
   (spacemacs/toggle-transparency)

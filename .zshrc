@@ -26,8 +26,13 @@ setopt NO_CASE_GLOB               # case insensitive
 setopt NUMERIC_GLOB_SORT          # sort results numerically
 setopt EXTENDED_GLOB              # extended syntax for globbing
 
+
+# === PATH editing ===
+export PATH="/opt/homebrew/bin:$PATH"                   # m1 homebrew location
+alias brew="/opt/homebrew/bin/brew"                           # point to the right vim
+
 # setup vim
-export EDITOR="vi"
+export EDITOR="vim"
 
 # === Modules ===
 autoload -U compinit promptinit zcalc zsh-mime-setup zmv
@@ -46,3 +51,10 @@ source "$HOME/.bundles.txt"                                    # source load all
 # === prompt, aliases, etc. ===
 source "$ZDIR/prompt.zh"                                       # my custom prompt
 source "$ZDIR/aliases.zh"                                      # my custom aliases
+
+# android
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools

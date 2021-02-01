@@ -1,1 +1,1 @@
-/Users/jameswang/dotfiles/.spacemacs.d
+/Users/maggie/dotfiles/.spacemacs.d

@@ -58,3 +58,6 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# opam configuration
+test -r /Users/maggie/.opam/opam-init/init.zsh && . /Users/maggie/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

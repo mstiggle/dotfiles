@@ -338,8 +338,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq exec-path (append exec-path '("/usr/local/bin")))
 
   ;; load theme before everything else
-  (add-to-load-path-if-exists "~/.spacemacs.d/")
-  (setq-default dotspacemacs-themes '(spacemacs-dark))
+  ;; (add-to-load-path-if-exists "~/.spacemacs.d/")
+  (setq-default dotspacemacs-themes '(mysterioso))
 
   ;; set background color to nothing for terminal-based
   (defun on-after-init ()
@@ -576,7 +576,7 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.react.js" . js-mode))
 
   ;; Typescript for tsx
-  (add-to-list 'auto-mode-alist '("\\.tsx" . typescript-mode))
+  (add-to-list 'auto-mode-alist '("\\.tsx" . typescript-tsx-mode))
 
   ;; setup tide
   (defun setup-tide-mode ()
@@ -722,6 +722,8 @@ you should place your code here."
   ;; Prettier
   (require 'prettier-js)
   (add-hook 'js2-mode-hook 'prettier-js-mode)
+  (add-hook 'js-mode'prettier-js-mode)
+  (add-hook 'js-jsx-mode'prettier-js-mode)
   (add-hook 'rjsx-mode 'prettier-js-mode)
   (add-hook 'web-mode-hook #'(lambda ()
                                (enable-minor-mode
@@ -732,6 +734,7 @@ you should place your code here."
                            "--trailing-comma" "es5"
                            "--bracket-spacing" "true"
                            "--single-quote" "true"
+                           "--arrow-parens" "avoid"
                            ))
 
   ;; Golang
